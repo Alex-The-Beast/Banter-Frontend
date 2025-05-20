@@ -8,10 +8,20 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { LucideLoader2, TriangleAlert } from "lucide-react";
+import { FaCheck } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
 
-export const SigninCard = ({ signinForm, setSigninForm }) => {
+export const SigninCard = ({
+  signinForm,
+  setSigninForm,
+  validationError,
+  onSigninFormSubmit,
+  error,
+  isPending,
+  isSuccess,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -21,9 +31,34 @@ export const SigninCard = ({ signinForm, setSigninForm }) => {
         <CardDescription className="text-center mt-2">
           Sign in to access your account
         </CardDescription>
+
+        {validationError && (
+          <div className="bg-destructive/15 p-4 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+            <TriangleAlert className="size-4" />
+            <p>{validationError.message}</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="bg-destructive/15 p-4 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+            <TriangleAlert className="size-4" />
+            <p>{error.message}</p>
+          </div>
+        )}
+
+        {isSuccess && (
+          <div className="bg-primary/20 p-3 rounded-md flex items-center gap-x-2 text-sm text-primary mb-6">
+            <FaCheck className="size-5" />
+            <p>
+              Successfully signed in. You will be redirected to Home page in a
+              few seconds.
+            </p>
+            <LucideLoader2 className="animate-spin ml-2 " />
+          </div>
+        )}
       </CardHeader>
       <CardContent>
-        <form className="space-y-3">
+        <form className="space-y-3" onSubmit={onSigninFormSubmit}>
           {/* for email input */}
           <Input
             placeholder="email"
@@ -33,7 +68,7 @@ export const SigninCard = ({ signinForm, setSigninForm }) => {
             }
             value={signinForm.email}
             type="email"
-            disabled={false}
+            disabled={isPending}
           ></Input>
 
           {/* for password input */}
@@ -45,10 +80,15 @@ export const SigninCard = ({ signinForm, setSigninForm }) => {
             }
             value={signinForm.password}
             type="password"
-            disabled={false}
+            disabled={isPending}
           ></Input>
 
-          <Button disabled={false} size="lg" type="submit" className="w-full">
+          <Button
+            disabled={isPending}
+            size="lg"
+            type="submit"
+            className="w-full"
+          >
             Continue
           </Button>
         </form>

@@ -11,12 +11,9 @@ import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const SigninCard = () => {
+export const SigninCard = ({ signinForm, setSigninForm }) => {
   const navigate = useNavigate();
-  const [signinForm, setSigninForm] = useState({
-    email: "",
-    password: "",
-  });
+
   return (
     <Card className="w-full h-full">
       <CardHeader>

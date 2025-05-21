@@ -1,45 +1,22 @@
 import React from "react";
 
-import { Route, Routes } from "react-router-dom";
-
-import { Auth } from "@/pages/Auth/Auth";
-
-import { NotFoundPage } from "@/pages/NotFound";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { SignupContainer } from "@/components/organism/Auth/SignupContainer";
-import { SigninContainer } from "@/components/organism/Auth/SigninContainer";
+
 import { Toaster } from "@/components/ui/sonner";
-import { Home } from "@/pages/Home";
+
+import { AppContextProvider } from "@/context/AppContextProvider";
+import { AppRoutes } from "@/Routes";
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route
-          path="/auth/signup"
-          element={
-            <Auth>
-              <SignupContainer />
-            </Auth>
-          }
-        />
-        <Route
-          path="/auth/signin"
-          element={
-            <Auth>
-              <SigninContainer />
-            </Auth>
-          }
-        />
+      <AppContextProvider>
+        <AppRoutes />
 
-        <Route path="/home" element={<Home />} />
-        {/* this is for not found page */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-
-      <Toaster />
+        <Toaster />
+      </AppContextProvider>
     </QueryClientProvider>
   );
 }

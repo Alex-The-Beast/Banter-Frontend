@@ -1,7 +1,10 @@
 export const Home=()=>{
     return(
-        <div>
-            <h1>Home</h1>
+        <div className="bg-slack h-screen w-full flex items-center justify-center">
+          
+               Home
+           
+            
         </div>
     )       
 }

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Auth } from "@/pages/Auth/Auth";
-import { Home } from "@/pages/Home";
+import { Home } from "@/pages/Home/Home";
 import { NotFoundPage } from "@/pages/NotFound";
 import { SignupContainer } from "@/components/organism/Auth/SignupContainer";
 import { SigninContainer } from "@/components/organism/Auth/SigninContainer";

@@ -1,7 +1,7 @@
 import { UserButton } from "@/components/atom/UserButton/UserButton";
 import { useFetchWorkspace } from "@/hooks/apis/workspaces/useFetchWorkspace";
 import { useEffect } from "react";
-
+// import { CreateWorkspaceModal } from "@/components/molecules/CreateWorkspaceModal/CreateWorkspaceModal";
 export const Home = () => {
   const { isFetching, workspaces } = useFetchWorkspace();
 
@@ -15,6 +15,7 @@ export const Home = () => {
   }, [isFetching, workspaces]);
   return (
     <div className="bg-slack h-screen w-full flex items-center justify-center">
+       {/* <CreateWorkspaceModal></CreateWorkspaceModal> */}
       <UserButton></UserButton>
     </div>
   );

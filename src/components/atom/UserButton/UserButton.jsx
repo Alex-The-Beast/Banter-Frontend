@@ -39,7 +39,7 @@ export const UserButton = () => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>{auth?.user?.username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem> Profile</DropdownMenuItem>
         

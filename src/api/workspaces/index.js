@@ -23,7 +23,7 @@ export const fetchWorkspaceRequest = async ({ token }) => {
       { headers: { "x-access-token": token } }
     );
     console.log("response in fetch workspace", response);
-    return response?.data;
+    return response?.data?.data;
   } catch (error) {
     console.log("Error in fetch workspace", error);
     throw error.response.data;

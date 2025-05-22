@@ -124,4 +124,7 @@
    .bg-slack {
     background-color: #5c3B58;
   }
+  .bg-slack-dark{
+    background-color: #481349
+  }
 }

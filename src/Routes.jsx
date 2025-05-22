@@ -5,6 +5,7 @@ import { NotFoundPage } from "@/pages/NotFound";
 import { SignupContainer } from "@/components/organism/Auth/SignupContainer";
 import { SigninContainer } from "@/components/organism/Auth/SigninContainer";
 import { ProtectedRoute } from "@/components/molecules/ProtectedRoute/ProtectedRoute";
+import { WorkspaceLayout } from "@/pages/workspace/Layout";
 
 export const AppRoutes = () => {
   return (
@@ -31,6 +32,15 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/workspaces/:workspaceId"
+        element={
+          <ProtectedRoute>
+            <WorkspaceLayout>Workspace</WorkspaceLayout>
           </ProtectedRoute>
         }
       />

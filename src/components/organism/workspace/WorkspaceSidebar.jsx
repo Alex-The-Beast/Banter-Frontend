@@ -5,9 +5,10 @@ import {
   HomeIcon,
   MessageSquareIcon,
   MoreHorizontalIcon,
-  User,
+ 
 } from "lucide-react";
 import { WorkspaceSwitcher } from "./WorkspaceSwitcher";
+
 
 export const WorkspaceSidebar = () => {
   return (
@@ -23,6 +24,9 @@ export const WorkspaceSidebar = () => {
       <div className="flex flex-col items-center justify-center mt-auto mb-[5px] gap-y-1">
         <UserButton/> 
       </div>
+ 
+
     </aside>
+    
   );
 };

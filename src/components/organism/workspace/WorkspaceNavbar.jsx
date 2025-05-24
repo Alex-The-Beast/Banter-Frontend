@@ -15,7 +15,12 @@ export const WorkspaceNavbar = () => {
 
   return (
     <nav className="flex items-center justify-center h-10 p-1.5 bg-slack-dark">
-        <div className="flex-1"/>
+      <div className="flex-1">
+        {" "}
+        <h1 className="text-white font-bold text-[20px] ml-2 md:ml-8">
+          Banter
+        </h1>
+      </div>
       <div>
         <Button
           size="sm"
@@ -29,9 +34,7 @@ export const WorkspaceNavbar = () => {
       </div>
 
       <div className="ml-auto flex-1 flex items-center justify-end">
-        <Button variant="transparent"
-        size="sm"
-        >
+        <Button variant="transparent" size="sm">
           <InfoIcon className="size-5 text-white  " />
         </Button>
       </div>

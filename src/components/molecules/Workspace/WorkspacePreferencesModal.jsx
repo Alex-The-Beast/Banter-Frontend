@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import { useConfirm } from "@/hooks/UseConfirm";
 
 export const WorkspacePreferencesModal = () => {
   const queryClient = useQueryClient();
@@ -31,7 +32,10 @@ export const WorkspacePreferencesModal = () => {
   const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);
   const [renameValue, setRenameValue] = useState(workspace?.name);
 
-  const { isPending, isSuccess, error, updateWorkspaceMutation } =
+  const {confirmation,ConfirmDialog}=useConfirm({ title: "Do you want to delete the workspace?", message: "This action cannot be undone" });
+    const {confirmation:updateConfirmation,ConfirmDialog:UpdateConfirmDialog}=useConfirm({ title: "Do you want to update the workspace?", message: "This action cannot be undone" });
+
+  const { isPending,  updateWorkspaceMutation } =
     useUpdateWorkspace(workspaceId);
   // const { workspaceId } = useParams();
   // console.log(workspaceId);
@@ -47,6 +51,10 @@ export const WorkspacePreferencesModal = () => {
 
   async function handleDelete() {
     try {
+      const ok=await confirmation();
+      if(!ok){
+        return
+      }
       await deleteWorkspaceMutation();
       navigate("/home");
       toast.success("Workspace deleted successfully");
@@ -62,6 +70,10 @@ export const WorkspacePreferencesModal = () => {
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
+      const ok=await updateConfirmation();
+      if(!ok){
+        return
+      }
       await updateWorkspaceMutation( renameValue );
       toast.success("Workspace updated successfully");
       queryClient.invalidateQueries(`fetchWorkspaceById-${workspace?._id}`);
@@ -74,6 +86,11 @@ export const WorkspacePreferencesModal = () => {
   }
 
   return (
+    <>
+    <ConfirmDialog/>
+    <UpdateConfirmDialog/>
+
+   
     <Dialog open={openPreferences} onOpenChange={onClose}>
       <DialogContent className="p-0 bg-gray-50 overflow-hidden">
         <DialogHeader className="p-4 border-b bg-white">
@@ -132,5 +149,7 @@ export const WorkspacePreferencesModal = () => {
         </div>
       </DialogContent>
     </Dialog>
+     
+    </>
   );
 };

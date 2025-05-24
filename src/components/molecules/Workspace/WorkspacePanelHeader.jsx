@@ -14,11 +14,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useWorkspacePreferencesModal } from "@/hooks/context/useWorkspacePreferencesModal";
 
 export const WorkspacePanelHeader = ({ workspace }) => {
   const worspacemembers = workspace?.members;
 
   const { auth } = useAuth();
+
+  const {setOpenPreferences}=useWorkspacePreferencesModal()
 
   const isLoggedInUserAdminOfWorkspace = worspacemembers?.find(
     (member) => member.memberId === auth?.user?._id && member.role === "admin"
@@ -51,7 +54,7 @@ export const WorkspacePanelHeader = ({ workspace }) => {
 
           {isLoggedInUserAdminOfWorkspace && (
             <>
-              <DropdownMenuItem className="cursor-pointer py-2">
+              <DropdownMenuItem className="cursor-pointer py-2" onClick={() => setOpenPreferences(true)}>
                 Preferences
               </DropdownMenuItem>
               <DropdownMenuSeparator />

@@ -19,6 +19,7 @@ export const WorkspaceLayout = ({ children }) => {
           <ResizablePanel
             defaultSize={20}
             minSize={11}
+            maxSize={50}
             className="bg-slack-medium"
           >
             <WorkspacePanel/>

@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -10,35 +9,45 @@ import { useWorkspacePreferencesModal } from "@/hooks/context/useWorkspacePrefer
 import { TrashIcon } from "lucide-react";
 
 import { useDeleteWorkspace } from "@/hooks/apis/workspaces/useDeleteWorkspace";
-import { useParams } from "react-router-dom";
+
 import { toast } from "sonner";
-import {  useState,useEffect} from "react";
+import { useState, useEffect } from "react";
+
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export const WorkspacePreferencesModal = () => {
-  const { initialValue, openPreferences, setOpenPreferences,workspace } =
+  const queryClient = useQueryClient();
+  const [workspaceId, setWorkspaceId] = useState(null);
+  const navigate = useNavigate();
+
+  const { initialValue, openPreferences, setOpenPreferences, workspace } =
     useWorkspacePreferencesModal();
+  const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);
 
   // const { workspaceId } = useParams();
   // console.log(workspaceId);
-
-  const [workspaceId, setWorkspaceId] = useState(null);
-
-  const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);
 
   function onClose() {
     setOpenPreferences(false);
   }
 
   useEffect(() => {
-    setWorkspaceId(workspace?._id)
-  },[workspace])
+    setWorkspaceId(workspace?._id);
+  }, [workspace]);
+
+  
   async function handleDelete() {
     try {
       await deleteWorkspaceMutation();
+      navigate("/home");
       toast.success("Workspace deleted successfully");
+      queryClient.invalidateQueries("fetchWorkspaces");
+
+      setOpenPreferences(false);
     } catch (error) {
       console.log("Error in deleting workspace", error);
-    toast.error("Error in deleting workspace");
+      toast.error("Error in deleting workspace");
     }
   }
 

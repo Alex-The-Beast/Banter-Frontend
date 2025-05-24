@@ -31,12 +31,14 @@ export const WorkspacePreferencesModal = () => {
               <p className="text-sm font-semibold hover:underline">Edit</p>
             </div>
 
+            <p className="text-sm">{initialValue}</p>
+
 
           </div>
 
           <Button className="flex items-center gap-x-2 px-5 py-4 bg-purple-400  rounded-lg border cursor-pointer hover:bg-purple-600">
             <TrashIcon className="size-5" />
-            <p className="">Delete Worksapce</p>
+            <p className="text-sm font-semibold">Delete Worksapce</p>
           </Button>
         </div>
       </DialogContent>

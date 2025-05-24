@@ -1,0 +1,48 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useCreateChannelModal } from "@/hooks/context/useCreateChannelModal";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@radix-ui/react-dialog";
+import { useState } from "react";
+
+export const CreateChannelModal = () => {
+  const { openCreateChannelModal, setOpenCreateChannelModal } =
+    useCreateChannelModal();
+  const [channelName, setChannelName] = useState("");
+
+  function handleClose() {
+    setOpenCreateChannelModal(false);
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+  }
+
+  return (
+    <Dialog open={openCreateChannelModal} onOpenChange={handleClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-center">Create a Channel</DialogTitle>
+        </DialogHeader>
+
+        <form onSubmit={handleFormSubmit}>
+          <Input
+            value={channelName}
+            onChange={(e) => setChannelName(e.target.value)}
+            placeholder="Channel Name e.g. spotify-listening"
+            minLength={3}
+            required
+          />
+
+          <div className="flex justify-end mt-4">
+            <Button>Create Channel</Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};

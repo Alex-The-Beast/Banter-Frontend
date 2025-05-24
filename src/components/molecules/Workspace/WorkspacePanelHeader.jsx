@@ -15,11 +15,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useWorkspacePreferencesModal } from "@/hooks/context/useWorkspacePreferencesModal";
+import { useEffect } from "react";
 
 export const WorkspacePanelHeader = ({ workspace }) => {
   const worspacemembers = workspace?.members;
 
   const { auth } = useAuth();
+
+  const {setWorkspace}=useWorkspacePreferencesModal();
 
   const { setOpenPreferences, setInitialValue } =
     useWorkspacePreferencesModal();
@@ -28,6 +31,10 @@ export const WorkspacePanelHeader = ({ workspace }) => {
     (member) => member.memberId === auth?.user?._id && member.role === "admin"
   );
   console.log("hello3", isLoggedInUserAdminOfWorkspace);
+
+  useEffect(()=>{
+    setWorkspace(workspace)
+  },[])
 
   return (
     <div className="flex items-center justify-between px-4 h-[50px] gap-0.5">

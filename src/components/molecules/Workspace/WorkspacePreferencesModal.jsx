@@ -9,13 +9,38 @@ import {
 import { useWorkspacePreferencesModal } from "@/hooks/context/useWorkspacePreferencesModal";
 import { TrashIcon } from "lucide-react";
 
+import { useDeleteWorkspace } from "@/hooks/apis/workspaces/useDeleteWorkspace";
+import { useParams } from "react-router-dom";
+import { toast } from "sonner";
+import {  useState,useEffect} from "react";
+
 export const WorkspacePreferencesModal = () => {
-  const { initialValue, openPreferences, setOpenPreferences } =
+  const { initialValue, openPreferences, setOpenPreferences,workspace } =
     useWorkspacePreferencesModal();
 
-    function onClose() {
-      setOpenPreferences(false);
+  // const { workspaceId } = useParams();
+  // console.log(workspaceId);
+
+  const [workspaceId, setWorkspaceId] = useState(null);
+
+  const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);
+
+  function onClose() {
+    setOpenPreferences(false);
+  }
+
+  useEffect(() => {
+    setWorkspaceId(workspace?._id)
+  },[workspace])
+  async function handleDelete() {
+    try {
+      await deleteWorkspaceMutation();
+      toast.success("Workspace deleted successfully");
+    } catch (error) {
+      console.log("Error in deleting workspace", error);
+    toast.error("Error in deleting workspace");
     }
+  }
 
   return (
     <Dialog open={openPreferences} onOpenChange={onClose}>
@@ -32,13 +57,14 @@ export const WorkspacePreferencesModal = () => {
             </div>
 
             <p className="text-sm">{initialValue}</p>
-
-
           </div>
 
-          <Button className="flex items-center gap-x-2 px-5 py-4 bg-purple-400  rounded-lg border cursor-pointer hover:bg-purple-600">
+          <Button
+            className="flex items-center  gap-x-2 px-5 py-4 bg-purple-500 hover:bg-purple-700 rounded-lg border cursor-pointer "
+            onClick={handleDelete}
+          >
             <TrashIcon className="size-5" />
-            <p className="text-sm font-semibold">Delete Worksapce</p>
+            <p className="text-sm font-semibold ">Delete Worksapce</p>
           </Button>
         </div>
       </DialogContent>

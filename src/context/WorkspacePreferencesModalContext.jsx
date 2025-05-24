@@ -6,8 +6,10 @@
 
     const [openPreferences, setOpenPreferences] = useState(false)
     const [initialValue,setInitialValue] = useState('Edit Workspace...')
+
+    const [workspace,setWorkspace]=useState(null)
   return (
-    <workspacePreferencesModalContext.Provider value={{openPreferences,setOpenPreferences,initialValue,setInitialValue}}>
+    <workspacePreferencesModalContext.Provider value={{openPreferences,setOpenPreferences,initialValue,setInitialValue,workspace,setWorkspace}}>
       {children}
     </workspacePreferencesModalContext.Provider>
   )

@@ -45,7 +45,7 @@ export const fetchWorkspaceDetailsRequest = async ({ workspaceId, token }) => {
 
 export const deleteWorkspaceRequest = async ({ workspaceId, token }) => {
   try {
-    const response = await axios.delete(`/workspace/${workspaceId}`, {
+    const response = await axios.delete(`/workspaces/${workspaceId}`, {
       headers: { "x-access-token": token },
     });
 
@@ -60,7 +60,7 @@ export const deleteWorkspaceRequest = async ({ workspaceId, token }) => {
 export const updateWorkspaceRequest = async ({ workspaceId,name, token }) => {
   try {
     const response = await axios.put(
-      `/workspace/${workspaceId}`,
+      `/workspaces/${workspaceId}`,
       {name},
       { headers: { "x-access-token": token } }
     );

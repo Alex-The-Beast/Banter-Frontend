@@ -28,7 +28,7 @@ export const WorkspacePanelHeader = ({ workspace }) => {
     useWorkspacePreferencesModal();
 
   const isLoggedInUserAdminOfWorkspace = worspacemembers?.find(
-    (member) => member.memberId === auth?.user?._id && member.role === "admin"
+    (member) => member.memberId._id === auth?.user?._id && member.role === "admin"
   );
   console.log("hello3", isLoggedInUserAdminOfWorkspace);
 

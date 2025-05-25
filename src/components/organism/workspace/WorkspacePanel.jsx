@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useGetWorkspaceById } from "@/hooks/apis/workspaces/useGetWorkspaceById";
-import { AlertTriangleIcon, Loader } from "lucide-react";
+import { AlertTriangleIcon, Loader, MessageSquare, MessageSquareTextIcon } from "lucide-react";
 import { WorkspacePanelHeader } from "@/components/molecules/Workspace/WorkspacePanelHeader";
+import { SidebarItem } from "@/components/atom/SidebarItem/SidebarItem";
 
 
 export const WorkspacePanel = () => {
@@ -33,6 +34,11 @@ export const WorkspacePanel = () => {
   return (
     <div  className="flex flex-col h-full bg-slack-medium">
         <WorkspacePanelHeader workspace={workspace} />
+
+        <div className="flex flex-col px-2 mt-3">
+          <SidebarItem label="Threads" icon={MessageSquareTextIcon} id="threads" variant="active" />
+
+        </div>
     </div>
   )
 };

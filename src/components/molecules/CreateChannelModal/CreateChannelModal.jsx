@@ -1,12 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateChannelModal } from "@/hooks/context/useCreateChannelModal";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog";
 import { useState } from "react";
 
 export const CreateChannelModal = () => {

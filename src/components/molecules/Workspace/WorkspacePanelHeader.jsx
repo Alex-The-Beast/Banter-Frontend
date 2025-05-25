@@ -16,11 +16,15 @@ import {
 } from "@/components/ui/tooltip";
 import { useWorkspacePreferencesModal } from "@/hooks/context/useWorkspacePreferencesModal";
 import { useEffect } from "react";
+import { WorkspaceInviteModel } from "@/components/organism/Modals/WorkspaceInviteModal";
+import { useState } from "react";
 
 export const WorkspacePanelHeader = ({ workspace }) => {
   const worspacemembers = workspace?.members;
 
   const { auth } = useAuth();
+
+  const [openInviteModal, setOpenInviteModal] = useState(false);
 
   const {setWorkspace}=useWorkspacePreferencesModal();
 
@@ -37,6 +41,9 @@ export const WorkspacePanelHeader = ({ workspace }) => {
   },[])
 
   return (
+    <>
+    <WorkspaceInviteModel 
+    openInviteModal={openInviteModal} setOpenInviteModal={setOpenInviteModal} workspaceName={workspace?.name} joinCode={workspace?.joinCode}/>
     <div className="flex items-center justify-between px-4 h-[50px] gap-0.5">
       <DropdownMenu>
         <DropdownMenuTrigger>
@@ -72,7 +79,8 @@ export const WorkspacePanelHeader = ({ workspace }) => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem>
+              <DropdownMenuItem 
+              className="cursor-pointer py-2" onClick={() => setOpenInviteModal(true)}>
                 Invite people to {workspace?.name}
               </DropdownMenuItem>
             </>
@@ -110,5 +118,6 @@ export const WorkspacePanelHeader = ({ workspace }) => {
         </TooltipProvider>
       </div>
     </div>
+    </>
   );
 };

@@ -6,6 +6,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useResetJoinCode } from "@/hooks/apis/workspaces/useResetJoinCode";
 import { CopyIcon, RefreshCcwIcon } from "lucide-react";
 import { toast } from "sonner";
 export const WorkspaceInviteModel = ({
@@ -13,7 +14,10 @@ export const WorkspaceInviteModel = ({
   setOpenInviteModal,
   workspaceName,
   joinCode,
+  workspaceId,
 }) => {
+  const {  resetJoinCodeMutation } =
+    useResetJoinCode(workspaceId);
   async function handleCopy() {
     const inviteLink = `${window.location.origin}/joinCode/${joinCode}`;
     await navigator.clipboard
@@ -27,8 +31,13 @@ export const WorkspaceInviteModel = ({
       });
   }
 
- async  function handleResetCode() {
-    setOpenInviteModal(false);
+  async function handleResetCode() {
+    try {
+      await resetJoinCodeMutation();
+      toast.success("Join code reset successfully");
+    } catch (error) {
+      console.log("Error resetting join code", error);
+    }
   }
   return (
     <Dialog open={openInviteModal} onOpenChange={setOpenInviteModal}>
@@ -49,10 +58,8 @@ export const WorkspaceInviteModel = ({
           </Button>
         </div>
 
-         <div className="flex  items-center justify-center  w-full">
-         
-
-          <Button  variant="outline" onClick={handleResetCode}>
+        <div className="flex  items-center justify-center  w-full">
+          <Button variant="outline" onClick={handleResetCode}>
             {" "}
             Reset Join Code <RefreshCcwIcon className="size-4 ml-2" />
           </Button>
@@ -61,5 +68,3 @@ export const WorkspaceInviteModel = ({
     </Dialog>
   );
 };
-
-

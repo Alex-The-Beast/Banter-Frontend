@@ -1,4 +1,5 @@
 import axios from "@/config/axiosConfig";
+import { use } from "react";
 
 export const createWorkspaceRequest = async ({ name, description, token }) => {
   try {
@@ -57,11 +58,11 @@ export const deleteWorkspaceRequest = async ({ workspaceId, token }) => {
   }
 };
 
-export const updateWorkspaceRequest = async ({ workspaceId,name, token }) => {
+export const updateWorkspaceRequest = async ({ workspaceId, name, token }) => {
   try {
     const response = await axios.put(
       `/workspaces/${workspaceId}`,
-      {name},
+      { name },
       { headers: { "x-access-token": token } }
     );
     console.log("response in update workspace", response);
@@ -87,6 +88,21 @@ export const addChannelToWorkspaceRequest = async ({
     return response?.data?.data;
   } catch (error) {
     console.log("Error in add channel to workspace request", error);
+    throw error.response.data;
+  }
+};
+
+export const resetJoinCodeRequest = async ({ workspaceId ,token}) => {
+  try {
+    const response = await axios.put(
+      `/workspaces/${workspaceId}/joincode/reset`,
+      {},
+      { headers: { "x-access-token": token } }
+    );
+    console.log("response in reset join code request", response);
+    return response?.data?.data;
+  } catch (error) {
+    console.log("Error in reset join code request", error);
     throw error.response.data;
   }
 };

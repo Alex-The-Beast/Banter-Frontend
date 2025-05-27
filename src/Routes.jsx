@@ -47,7 +47,8 @@ export const AppRoutes = () => {
       />
 
       <Route path="/workspaces/:workspaceId/channels/:channelId" element={<ProtectedRoute>Channel</ProtectedRoute>} />
-      <Route path='/workspaces/join/:workspaceId' element={<JoinPage />} />
+      
+         <Route path="/workspaces/join/:workspaceId" element={<JoinPage />} />
       {/* this is for not found page */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

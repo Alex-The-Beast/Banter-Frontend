@@ -7,6 +7,7 @@ import { SigninContainer } from "@/components/organism/Auth/SigninContainer";
 import { ProtectedRoute } from "@/components/molecules/ProtectedRoute/ProtectedRoute";
 import { WorkspaceLayout } from "@/pages/workspace/Layout";
 import { JoinPage } from "@/pages/workspace/JoinPage";
+import { Channel } from "@/pages/workspace/Channel/Channel";
 
 export const AppRoutes = () => {
   return (
@@ -46,7 +47,9 @@ export const AppRoutes = () => {
         }
       />
 
-      <Route path="/workspaces/:workspaceId/channels/:channelId" element={<ProtectedRoute>Channel</ProtectedRoute>} />
+      <Route path="/workspaces/:workspaceId/channels/:channelId" element={   <ProtectedRoute>
+            <WorkspaceLayout><Channel/></WorkspaceLayout>
+          </ProtectedRoute>} />
       
          <Route path="/workspaces/join/:workspaceId" element={<JoinPage />} />
       {/* this is for not found page */}

@@ -13,7 +13,7 @@ export const Home = () => {
     if (isFetching) return;
     console.log("workspaces downloaded is", workspaces);
 
-    if(workspaces.length === 0 || !workspaces) {
+    if(workspaces?.length === 0 || !workspaces) {
         console.log('No workspaces found . Creating one.');
         setOpenCreateWorkspaceModal(true)
     }

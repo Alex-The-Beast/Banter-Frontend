@@ -40,7 +40,7 @@ export const fetchWorkspaceDetailsRequest = async ({ workspaceId, token }) => {
     return response?.data?.data;
   } catch (error) {
     console.log("Error in fetch workspace details request", error);
-    throw error.response.data;
+    throw error.response;
   }
 };
 

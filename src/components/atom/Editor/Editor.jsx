@@ -1,5 +1,7 @@
 import Quill from "quill";
-import { use, useEffect, useRef, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
+import 'quill/dist/quill.snow.css';  // this is css for quill 
+
 
 export const Editor = (
   varinat = "create",
@@ -21,7 +23,9 @@ export const Editor = (
 
   useEffect(() => {
     if (!containerRef.current) return; // if containerRef is not initialized,return
+
     const container = containerRef.current; // get the container element
+        container.innerHTML = "";
 
     const editorContainer=container.appendChild(container.ownerDocument.createElement("div")) //create a new div element and append it to the container.
 
@@ -67,6 +71,12 @@ export const Editor = (
       <div className="flex flex-col border border-slate-300 rounded-md overflow-hidden focus-within:shadow-sm focus-within:border-slate-400 bg-white transition focus-within:">
         <div ref={containerRef} />
       </div>
+      <p className="p-2 text-[10px] text-muted-foreground flex justify-end">
+        <strong >Shift + return  </strong> &nbsp;  to add a new line.
+      </p>
     </div>
   );
 };
+
+
+// fixed the issue now i am on strong tag time 2:11:31

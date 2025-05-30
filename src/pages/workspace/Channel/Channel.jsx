@@ -4,6 +4,7 @@ import { Loader2Icon, TriangleAlertIcon } from "lucide-react";
 import { ChatInput } from "@/components/molecules/ChatInput/ChatInput";
 import { ChannelHeader } from "@/components/molecules/Channel/ChannelHeader";
 
+
 export const Channel = () => {
   const { channelId } = useParams();
 
@@ -31,6 +32,7 @@ export const Channel = () => {
 
       <div className="flex flex-col h-full ">
         <ChannelHeader name={channelDetails?.name} />
+       
     <div className="flex-1"/>
       <ChatInput />
     

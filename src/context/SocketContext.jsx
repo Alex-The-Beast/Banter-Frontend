@@ -1,17 +1,25 @@
-import { createContext } from "react";
-import {io } from 'socket.io-client'
+import { createContext, useState } from "react";
+import { io } from "socket.io-client";
 
-const SocketContext = createContext()
+const SocketContext = createContext();
 
-export const SocketContextProvider=( {children})=>{
+export const SocketContextProvider = ({ children }) => {
+  const [currentChannel, setCurrentChannel] = useState(null);
 
-    const socket=io(import.meta.env.VITE_BACKEND_SOCKET_URL)
+  const socket = io(import.meta.env.VITE_BACKEND_SOCKET_URL);
 
-    return (
-        <SocketContext.Provider value={{socket}} >
-            {children}
-        </SocketContext.Provider>
-    )
-}
+  async function joinChannel(channelId) {
+    socket.emit("joinChannel", { channelId }, (data) => {
+      console.log("successfully joined the channel", data);
+      setCurrentChannel(data?.data)
+    });
+  }
 
-export default SocketContext
+  return (
+    <SocketContext.Provider value={{ socket, joinChannel ,currentChannel}}>
+      {children}
+    </SocketContext.Provider>
+  );
+};
+
+export default SocketContext;

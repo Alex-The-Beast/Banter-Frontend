@@ -38,7 +38,7 @@ export const Editor = ({
       if (!containerRef.current) return; // if containerRef is not initialized,return
 
       const container = containerRef.current; // get the container element
-      container.innerHTML = "";
+      // container.innerHTML = "";
 
       const editorContainer = container.appendChild(
         container.ownerDocument.createElement("div")

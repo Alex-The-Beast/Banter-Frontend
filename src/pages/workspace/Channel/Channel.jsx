@@ -5,18 +5,20 @@ import { ChatInput } from "@/components/molecules/ChatInput/ChatInput";
 import { ChannelHeader } from "@/components/molecules/Channel/ChannelHeader";
 import { useEffect } from "react";
 import { useSocket } from "@/hooks/context/useSocket.";
-
+import { useGetChannelMessages } from "@/hooks/apis/channels/useGetChannelMessages";
+import { Message } from "@/components/molecules/Message/Message";
 
 export const Channel = () => {
   const { channelId } = useParams();
 
   const { channelDetails, isFetching, isError } = useGetChannelById(channelId);
-  const {joinChannel}=useSocket()
+  const { joinChannel } = useSocket();
 
-  useEffect(()=>{
-    if(!isFetching && !isError) joinChannel(channelId)
+  const {messages,isFetching:isMessageFetching} = useGetChannelMessages(channelId);
 
-  },[isFetching,isError,channelId,joinChannel])
+  useEffect(() => {
+    if (!isFetching && !isError) joinChannel(channelId);
+  }, [isFetching, isError, channelId, joinChannel]);
 
   if (isFetching) {
     return (
@@ -36,15 +38,17 @@ export const Channel = () => {
       </div>
     );
   }
-  return(
+  return (
+    <div className="flex flex-col h-full ">
+      <ChannelHeader name={channelDetails?.name} />
+      {messages?.map((message)=>{
+        return <Message key={message._id} body={message.body} authorName={message.senderId?.username} authorImage={message.senderId?.avatar} createdAt={message.createdAt} />
+      })}
 
-      <div className="flex flex-col h-full ">
-        <ChannelHeader name={channelDetails?.name} />
-       
-    <div className="flex-1"/>
+      <div className="flex-1" />
       <ChatInput />
-    
-  </div>
-  )
 
+     
+    </div>
+  );
 };

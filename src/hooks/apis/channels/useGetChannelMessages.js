@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/context/useAuth";
 export const useGetChannelMessages = (channelId) => {
   const { auth } = useAuth();
 
-  const { isFetching, isError ,error,data} = useQuery({
+  const { isFetching, isError ,error,data,isSuccess} = useQuery({
     queryFn: () =>
       getPaginatedMessagesRequest({
         channelId,
@@ -13,7 +13,7 @@ export const useGetChannelMessages = (channelId) => {
         offset: 0,
         token: auth?.token,
       }),
-    queryKey: ["getPaginatedMessages", channelId],
+    queryKey: ["getPaginatedMessages"],
   });
-  return { isFetching, isError ,error,messages:data };
+  return { isFetching, isError ,error,messages:data,isSuccess };
 };

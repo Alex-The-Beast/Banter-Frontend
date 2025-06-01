@@ -1,7 +1,7 @@
 import { Editor } from "@/components/atom/Editor/Editor";
 import { useAuth } from "@/hooks/context/useAuth";
 import { useCurrentWorkspace } from "@/hooks/context/UseCurrentWorkspace";
-import { useSocket } from "@/hooks/context/useSocket.";
+import { useSocket } from "@/hooks/context/useSocket";
 
 
 export const ChatInput = () => {

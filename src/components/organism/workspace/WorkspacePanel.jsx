@@ -59,7 +59,7 @@ export const WorkspacePanel = () => {
         />
       </div>
       <WorkspacePanelSection 
-      label={"Channels"}
+      label={"Channels 1"}
       onIconClick={() => {setOpenCreateChannelModal(true)}}>
         {workspace?.channels?.map((channel) => {
           return (
@@ -73,7 +73,7 @@ export const WorkspacePanel = () => {
         )
         })}
       </WorkspacePanelSection>
-      <WorkspacePanelSection label={"Direct Messages"}
+      <WorkspacePanelSection label={"Direct Messages "}
       onIconClick={() => {}}>
         {workspace?.members?.map((member) => {
           return (

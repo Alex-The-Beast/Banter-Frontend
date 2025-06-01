@@ -3,7 +3,7 @@ import { useGetChannelById } from "@/hooks/apis/channels/useGetChannelById";
 import { Loader2Icon, TriangleAlertIcon } from "lucide-react";
 import { ChatInput } from "@/components/molecules/ChatInput/ChatInput";
 import { ChannelHeader } from "@/components/molecules/Channel/ChannelHeader";
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 import { useSocket } from "@/hooks/context/useSocket";
 import { useGetChannelMessages } from "@/hooks/apis/channels/useGetChannelMessages";
 import { Message } from "@/components/molecules/Message/Message";
@@ -20,11 +20,19 @@ export const Channel = () => {
 
 
   const { messages, isSuccess } = useGetChannelMessages(channelId);
+  const messageContainerListRef=useRef(null)
+
+  useEffect(() => {
+    if (messageContainerListRef.current) {
+      messageContainerListRef.current.scrollTop =
+        messageContainerListRef.current.scrollHeight;
+    }
+  }, [messageList]);
 
   useEffect(() => {
     console.log("channelId", channelId);
     queryClient.invalidateQueries("getPaginatedMessages");
-  }, [channelId, queryClient]);
+  }, [channelId]);
 
   useEffect(() => {
     if (!isFetching && !isError) {
@@ -55,7 +63,7 @@ export const Channel = () => {
 
   if (isError) {
     return (
-      <div className="h-full flex-1 flex flex-col items-center justify-center gap-y-2">
+      <div className="h-full  flex flex-col items-center justify-center gap-y-2">
         <TriangleAlertIcon className="size-6 text-muted-foreground" />
         <span className="text-sm text-muted-foreground">
           Channel not found.
@@ -66,7 +74,11 @@ export const Channel = () => {
   return (
     <div className="flex flex-col h-full ">
       <ChannelHeader name={channelDetails?.name} />
-      {messageList?.map((message) => {
+      {/* here should be scroll message feature implemented */}
+    <div
+    ref={messageContainerListRef}
+    className="flex-15 overflow-y-auto p-5 gap-y-2">
+        {messageList?.map((message) => {
         return (
           console.log("message", message),
           (
@@ -80,6 +92,7 @@ export const Channel = () => {
           )
         );
       })}
+    </div>
 
       <div className="flex-1" />
       <ChatInput />

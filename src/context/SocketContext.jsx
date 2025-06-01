@@ -12,6 +12,7 @@ export const SocketContextProvider = ({ children }) => {
   socket.on('newMessageReceived',(data)=>{
     console.log("new message received",data)
     setMessageList([...messageList,data])
+  
   })
 
   async function joinChannel(channelId) {
